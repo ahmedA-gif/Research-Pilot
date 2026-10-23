@@ -1,6 +1,7 @@
 """End-to-end integration tests for all ResearchPilot FastAPI endpoints.
 """
 
+import uuid
 import pytest
 from httpx import AsyncClient, ASGITransport
 from backend.main import app
@@ -57,8 +58,9 @@ async def test_full_api_workflow():
         assert search_data["papers"][0]["similarity_score"] >= search_data["papers"][1]["similarity_score"]
 
         # 6. Import BibTeX / DOI
+        unique_doi = f"10.1109/ACCESS.2023.{uuid.uuid4().hex[:7]}"
         bib_payload = {
-            "raw_content": "10.1109/ACCESS.2023.1234567",
+            "raw_content": unique_doi,
             "default_source": "DOI Manual"
         }
         resp = await client.post(f"/api/projects/{project_id}/import-bibtex", json=bib_payload)
