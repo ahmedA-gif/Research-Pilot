@@ -111,7 +111,7 @@ async def simulate_nine_agent_stream(run_id: str) -> AsyncGenerator[str, None]:
         simulation_mode=True
     )
     yield f"data: {connect_envelope.model_dump_json()}\n\n"
-    await asyncio.sleep(0.3)
+    await asyncio.sleep(0.1)
 
     # Stream 9 agent stages
     for idx, stage_info in enumerate(AGENT_STAGES, start=1):
@@ -129,7 +129,7 @@ async def simulate_nine_agent_stream(run_id: str) -> AsyncGenerator[str, None]:
             simulation_mode=True
         )
         yield f"data: {start_envelope.model_dump_json()}\n\n"
-        await asyncio.sleep(0.4)
+        await asyncio.sleep(0.15)
 
         # 2. Stage Completed
         complete_envelope = TaskEnvelope(
@@ -143,7 +143,7 @@ async def simulate_nine_agent_stream(run_id: str) -> AsyncGenerator[str, None]:
             simulation_mode=True
         )
         yield f"data: {complete_envelope.model_dump_json()}\n\n"
-        await asyncio.sleep(0.3)
+        await asyncio.sleep(0.1)
 
     # Final Pipeline Complete Event
     finish_envelope = TaskEnvelope(
