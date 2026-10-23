@@ -76,10 +76,10 @@ class NvidiaClient:
         }
         payload = {
             "input": [text],
-            "model": self.embed_model,
-            "input_type": input_type,
-            "encoding_format": "float"
+            "model": self.embed_model
         }
+        if "nemotron-3.5" in self.embed_model:
+            payload["input_type"] = input_type
 
         # Bounded retry: up to 2 attempts for transient failures
         last_error = None
@@ -95,6 +95,10 @@ class NvidiaClient:
                                 f"Dimension mismatch: expected {self.dimension}, got {len(embedding)}"
                             )
                         return embedding, False
+                    elif resp.status_code in [400, 500] and "input_type" in payload:
+                        # Try fallback without input_type
+                        del payload["input_type"]
+                        continue
                     elif resp.status_code in [429, 502, 503, 504]:
                         last_error = f"HTTP {resp.status_code}: {resp.text}"
                         time.sleep(1.0)
@@ -132,18 +136,18 @@ class NvidiaClient:
             "model": self.llm_model,
             "messages": messages,
             "temperature": temperature,
-            "max_tokens": max_tokens,
-            "response_format": {"type": "json_object"}
+            "max_tokens": max_tokens
         }
 
         last_error = None
         for attempt in range(2):
             try:
-                async with httpx.AsyncClient(timeout=30.0) as client:
+                async with httpx.AsyncClient(timeout=35.0) as client:
                     resp = await client.post(endpoint, json=payload, headers=headers)
                     if resp.status_code == 200:
                         data = resp.json()
-                        content = data["choices"][0]["message"]["content"]
+                        msg = data["choices"][0]["message"]
+                        content = msg.get("content") or msg.get("reasoning_content") or ""
                         return content, False
                     elif resp.status_code in [429, 502, 503, 504]:
                         last_error = f"HTTP {resp.status_code}: {resp.text}"
