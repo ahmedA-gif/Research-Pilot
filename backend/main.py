@@ -39,8 +39,24 @@ app.add_middleware(
 app.include_router(router)
 
 
-@app.get("/", tags=["Health"])
-async def root():
+from pathlib import Path
+from fastapi.responses import HTMLResponse
+
+STATIC_INDEX = Path(__file__).parent / "static" / "index.html"
+
+
+@app.get("/", response_class=HTMLResponse, tags=["Dashboard"])
+async def dashboard():
+    """Serve the interactive ResearchPilot web dashboard."""
+    if STATIC_INDEX.exists():
+        with open(STATIC_INDEX, "r", encoding="utf-8") as f:
+            return HTMLResponse(content=f.read())
+    return HTMLResponse("<h1>ResearchPilot API Operational</h1><p>Visit <a href='/docs'>/docs</a> for Swagger documentation.</p>")
+
+
+@app.get("/api", tags=["Health"])
+async def api_sitemap():
+    """API health and sitemap."""
     return {
         "service": "ResearchPilot Core API",
         "phase": "Week 1 - Foundation, Contracts & First Visible Win",

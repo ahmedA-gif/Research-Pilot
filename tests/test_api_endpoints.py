@@ -13,10 +13,14 @@ async def test_full_api_workflow():
     init_db()
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as client:
-        # 1. Health Root
-        resp = await client.get("/")
-        assert resp.status_code == 200
-        assert resp.json()["status"] == "operational"
+        # 1. Health Root & Dashboard
+        resp_html = await client.get("/")
+        assert resp_html.status_code == 200
+        assert "ResearchPilot" in resp_html.text
+
+        resp_api = await client.get("/api")
+        assert resp_api.status_code == 200
+        assert resp_api.json()["status"] == "operational"
 
         # 2. Create Project
         proj_payload = {
