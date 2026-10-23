@@ -1,0 +1,82 @@
+[
+  {
+    "case_id": "qa-01",
+    "query": "How much does phishing detection classifier accuracy degrade during cross-dataset transfer?",
+    "target_topic": "cross-dataset generalization collapse",
+    "expected_paper_ids": ["phish-01", "phish-17"],
+    "expected_answer_keywords": ["34%", "20% to 45%", "dataset transfer", "distribution drift", "cross-dataset"],
+    "evaluation_rationale": "Empirical benchmarks evaluate multi-dataset testing across PhishTank, Alexa, OpenPhish and ISCX-URL2016."
+  },
+  {
+    "case_id": "qa-02",
+    "query": "What are the effects of adversarial lexical evasion attacks such as homoglyphs and path padding on URL classifiers?",
+    "target_topic": "adversarial evasion robustness",
+    "expected_paper_ids": ["phish-02", "phish-05", "phish-16"],
+    "expected_answer_keywords": ["evasion", "homoglyphs", "perturbations", "bypass rate", "decision tree"],
+    "evaluation_rationale": "Evaluates resilience against character-level adversarial mutations and black-box evasion."
+  },
+  {
+    "case_id": "qa-03",
+    "query": "How does concept drift and temporal feature decay impact real-time phishing classifiers over time?",
+    "target_topic": "temporal degradation and concept drift",
+    "expected_paper_ids": ["phish-03", "phish-07", "phish-19", "phish-20"],
+    "expected_answer_keywords": ["concept drift", "feature decay", "longitudinal", "longevity", "temporal bias"],
+    "evaluation_rationale": "Tests understanding of classifier decay across longitudinal timelines (14 days to 3 years)."
+  },
+  {
+    "case_id": "qa-04",
+    "query": "Can Transformer and pre-trained language models improve cross-domain generalization in phishing webpage detection?",
+    "target_topic": "transformer architectures for phishing detection",
+    "expected_paper_ids": ["phish-04", "phish-18"],
+    "expected_answer_keywords": ["Transformer", "DOM-tree", "cross-domain", "multilingual", "BERT"],
+    "evaluation_rationale": "Investigates whether contextual representations bridge vocabulary and industry domain gaps."
+  },
+  {
+    "case_id": "qa-05",
+    "query": "How do generative AI and recurrent neural networks synthesize synthetic evasive phishing URLs?",
+    "target_topic": "generative AI attack simulation",
+    "expected_paper_ids": ["phish-06"],
+    "expected_answer_keywords": ["DeepPhish", "generative recurrent neural network", "evading", "synthetic phishing"],
+    "evaluation_rationale": "Assesses attacker use of generative deep learning models to bypass Safe Browsing."
+  },
+  {
+    "case_id": "qa-06",
+    "query": "What theoretical bounds exist for classifier risk under adversarial domain shift in phishing?",
+    "target_topic": "theoretical generalization bounds",
+    "expected_paper_ids": ["phish-08"],
+    "expected_answer_keywords": ["generalization bounds", "empirical risk", "optimal transport", "invariant risk minimization"],
+    "evaluation_rationale": "Verifies theoretical formulation of covariate shift and adversary optimization."
+  },
+  {
+    "case_id": "qa-07",
+    "query": "What are the trade-offs between deep learning and classical machine learning for phishing URL detection?",
+    "target_topic": "model architecture comparative evaluation",
+    "expected_paper_ids": ["phish-09"],
+    "expected_answer_keywords": ["Random Forest", "CNN", "LSTM", "expert-engineered", "out-of-distribution noise"],
+    "evaluation_rationale": "Compares raw character deep models against manual expert features under noise."
+  },
+  {
+    "case_id": "qa-08",
+    "query": "How does multi-modal learning combining DOM tree, URLs, and screenshots defend against single-channel obfuscation?",
+    "target_topic": "multimodal phishing detection",
+    "expected_paper_ids": ["phish-10", "phish-11", "phish-12"],
+    "expected_answer_keywords": ["multi-modal", "graph neural network", "DOM", "visual", "heterogeneous"],
+    "evaluation_rationale": "Evaluates graph and vision approaches when lexical features are obfuscated."
+  },
+  {
+    "case_id": "qa-09",
+    "query": "Why does standard k-fold cross-validation produce over-optimistic results on phishing benchmark datasets?",
+    "target_topic": "benchmark reproducibility and evaluation bias",
+    "expected_paper_ids": ["phish-03", "phish-22"],
+    "expected_answer_keywords": ["cross-validation", "time-aware", "temporal split", "inflated", "reproducibility"],
+    "evaluation_rationale": "Demonstrates why time-unaware splitting inflates accuracy compared to prospective deployment."
+  },
+  {
+    "case_id": "qa-10",
+    "query": "How can domain adaptation and transfer learning recover accuracy on emerging zero-day phishing campaigns?",
+    "target_topic": "transfer learning and domain adaptation",
+    "expected_paper_ids": ["phish-15", "phish-25"],
+    "expected_answer_keywords": ["domain adaptation", "transfer learning", "Maximum Mean Discrepancy", "zero-day", "self-supervised"],
+    "evaluation_rationale": "Tests techniques that align representations between legacy collections and live zero-day attacks."
+  }
+]
